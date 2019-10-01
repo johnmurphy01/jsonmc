@@ -1,58 +1,45 @@
-# JSON Movie Collection
+JSON filmgyűjtemény
+A filmek és a színészek átfogó gyűjteménye, könnyen kezelhető és elemezhető json fájl formátumban, a kiadási év alapján elkülönítve.
 
-A comprehensive collection of movies and actors easy to use and parse in json file format segregated by release year.
+A https://github.com/jsonmc/jsonmc oldalról, amely most archivált és csak olvasható. Lassan átállom a kérdéseket erre a repora, ezért kérjük, légy türelmes. Kérjük, csillagozzon, és figyelje, ha tetszik!
 
-Forked from https://github.com/jsonmc/jsonmc which is now archived and read-only. I am slowly migrating the issues over to this repo, so please be patient. Please star and watch if you like!
+hozzájárulás
+Ez a tárház minden októberben sok figyelmet szentel. Ha a Hacktoberfest címkével ellátott kérdések valamelyikén szeretne dolgozni, kérjük, mondja el ezt a kiadásban, és biztosan összevonom az előbbiek PR-jét.
 
-## Contributing
+Ha olyan kérdéseket keres, amelyekhez hozzájárulna, ellenőrizze azokat, amelyek nem tartalmazzák a "dibs" címkét. Ellenőrizze a megjegyzéseket, ha senki sem kért „dibs” -t, akkor mindenképpen hagyja meg véleményét, így előbb egyesítheti PR-jét a kérdéshez.
 
-Every October, this repository receives a lot of attention. If you want to work on any of the issues tagged Hacktoberfest, please, say so in the issue and I'll make sure to merge the PRs of those who came first.
+Győződjön meg arról, hogy mindig vonzza a húzási igényeket a vonatkozó kérdéshez, ha hozzáteszi a 100. javítást az átadási üzenethez, a PR címhez vagy a PR leíráshoz. A minta elkészítéséhez sablon szolgált.
 
-If you're looking for issues to contribute, check those that does not have a "dibs" label. Check the comments, if nobody requested "dibs", make sure to leave your comment so you can get your PR merged first for that issue.
-
-Make sure to always reference your pull requests with the respective issue by adding `Fixes #100` on your commit message, PR title or PR description. A template has been provided to help you out.
-
-### A movie has the following details
-
-
-| Movie attribute | Details                                                              |
-| --------------- | -------------------------------------------------------------------- |
-| Release date    | YYYY-MM-DD release date                                              |
-| Categories      | Action, adventure, comedy, animation, family, fantasy, sci-fi, sport |
-| Director        | Directors of the movie                                               |
-| Writers         | Screenplay and story writers                                         |
-| Actors          | Main casts of the movie                                              |
-| Year            | Movie released year                                                  |
-| Runtime         | Runtime in mins                                                      |
-| Storyline       | Brief description of the movie                                       |
-
-
-#### Example movie file
-
-```json
+Egy film a következő részleteket tartalmazza
+A film attribútum részletei
+Kiadás dátuma ÉÉÉÉ-HH-NN
+Kategóriák Akció, kaland, komédia, animáció, család, fantázia, sci-fi, sport
+Rendező A film rendezői
+Írók forgatókönyvírók és történetírók
+Színészek A film főjátékai
+Év A film megjelenésének éve
+Runtime Runtime percekben
+Storyline A film rövid leírása
+Példa film fájlra
 {
-  "name": "Jurassic Park",
-  "year": 1993,
-  "runtime": 127,
-  "categories": [
-    "adventure",
-    "thriller",
-    "sci-fi"
-  ],
-  "release-date": "1993-06-11",
-  "director": "Steven Spielberg",
-  "writer": [
-    "Michael Crichton",
-    "David Koepp"
-  ],
-  "actors": [
-    "Sam Neill",
-    "Laura Dern",
-    "Jeff Goldblum"
-  ],
-  "storyline": "Huge advancements in scientific technology have enabled a mogul ... critical security systems are shut down and it now becomes a race for survival with dinosaurs roaming freely over the island."
+  "név": "Jurassic Park",
+  "év": 1993,
+  "futási idő": 127,
+  "kategóriák": [
+    "kaland",
+    "krimi",
+    "Sci-fi"
+  ],
+  "megjelenési dátum": "1993-06-11",
+  "rendező": "Steven Spielberg",
+  "író": [
+    "Michael Crichton",
+    "David Koepp"
+  ],
+  "színészek": [
+    "Sam Neill",
+    "Laura Dern",
+    "Jeff Goldblum"
+  ],
+  "történet": "A tudományos technológia hatalmas fejlődése lehetővé tette a mogul számára ... a kritikus biztonsági rendszerek leállítását, és ez a túlélés versenyévé válik, amikor a dinoszauruszok szabadon barangolnak a szigeten."
 }
-```
-## Contributing
-
-Check [Contributing Guide](contributing.markdown) for further instructions.
