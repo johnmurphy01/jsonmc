@@ -1,0 +1,26 @@
+{
+  "name": "Vanilla Sky",
+  "year": 2001,
+  "runtime": 137,
+  "categories": [
+    "mystery",
+    "fantasy",
+    "psychological thriller",
+    "science fiction"
+  ],
+  "release-date": "2001-12-14",
+  "director": "Cameron Crowe",
+  "writer": [
+    "Alejandro Fernando Amenábar Cantos",
+    "Mateo Gil Rodríguez"
+  ],
+  "actors": [
+    "Tom Cruise",
+    "Penélope Cruz",
+    "Kurt Russell",
+    "Jason Lee",
+    "Noah Taylor",
+    "Cameron Diaz"
+  ],
+  "storyline": "David Aames, a publishing magnate, becomes the victim of a car crash, which scars his face. The incident changes him and compels him to question the existing reality of his life."
+}
