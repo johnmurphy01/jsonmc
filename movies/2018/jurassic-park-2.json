@@ -1,0 +1,33 @@
+{
+  "name": "The Lost World: Jurassic Park",
+  "year": 1997,
+  "runtime": 129,
+  "categories": [
+    "action",
+    "sci-fi"
+  ],
+  "release-date": "1997-08-22",
+  "director": "Steven Spielberg",
+  "writer": [
+    "Michael Crichton",
+    "David Koepp"
+  ],
+  "actors": [
+    "Jeff Goldblum",
+    "Julianne Moore",
+    "Pete Postlethwaite",
+    "Arliss Howard",
+    "Richard Attenborough",
+    "Vince Vaughn",
+    "Vanessa Chester",
+    "Peter Stormare",
+    "Harvey Jason",
+    "Richard Schiff",
+    "Thomas F. Duffy",
+    "Joseph Mazzello",
+    "Ariana Richards",
+    "Thomas Rosales Jr.",
+    "Camilla Belle"
+  ],
+  "storyline": "A research team is sent to an island eighty-seven miles away from the previous home of Jurassic Park, to document and photograph the now liberated dinosaurs. However, InGen the BioEngineering company has sent another larger team to the same island to catch, sedate, and transport some dinosaurs to San Diego where they will be used in a new Jurassic Park location. But life always finds a way. Will both teams return to the mainland with successful findings? Or will another tragedy occur?"
+}
