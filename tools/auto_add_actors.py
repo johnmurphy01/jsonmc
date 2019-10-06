@@ -9,6 +9,7 @@ import json # for .json files
 import requests # for api requests
 import sys # for exit
 import unicodedata as ud # for is_latin and only_roman_chars
+import re # for finding birthname
 
 # Variables
 
@@ -74,6 +75,47 @@ def search(name):
     else: 
         return False
 
+# function to get a person's birth name from the wikipedia api
+def getBirthName(name):
+    try:
+        new_name = name
+        while True:
+            url = "https://en.wikipedia.org/w/api.php?"
+            params = {
+                'action':'query',
+                'titles':new_name,
+                'format':'json',
+                'prop':'revisions',
+                'rvsection':'0',
+                'rvprop':'content'
+            }
+            # get page data
+            r = requests.get(url=url, params=params)
+            
+            # if there's more than one guy with that name, go to the actor page
+            if re.search('may refer to:', str(r.content)): new_name = name + " (actor)"
+            else: break
+        
+        # parse the name out and make it look pretty
+        # get the page id
+        id = list(r.json()['query']['pages'])[0]
+        # get the content of the page
+        content = r.json()['query']['pages'][id]['revisions'][0]['*']
+        # get the birth name using complicated regex
+        birthname = re.search("birth_name.*= ({{nowrap\|)?(.*)(}})?", content).group(2)
+        # chop of the }} if it's there
+        if birthname[-2:] ==  "}}": birthname = birthname[:-2]
+        
+        # sometimes comments such as '<!-- only use if different from name -->'
+        # are put in the birth_name place on wikipedia, so just return name
+        if not birthname.replace(" ", "").isalpha(): return name
+        
+        return birthname
+        
+    # if all else fails, just set the birthname to name.
+    except:
+        return name
+    
 # function to skim data from tmdb api and change it to jsonmc format
 def jsonmcify(data):
     # put in the name, birthdate, and birthplace
@@ -83,13 +125,7 @@ def jsonmcify(data):
     new_data['name'] = name
     
     # birth name
-    
-    # if there is an 'also_known_as' that uses our alphabet...
-    if len(data['also_known_as']) > 0 and only_roman_chars(data['also_known_as'][0]):
-        new_data['birthname'] = data['also_known_as'][0]
-    else:
-        # otherwise, set the birthname to the name
-        new_data['birthname'] = new_data['name']
+    new_data['birthname'] = getBirthName(name)
     
     # birthdate
     new_data['birthdate'] = data['birthday']
@@ -137,7 +173,7 @@ with open("tools/unlisted_actors.txt", 'r', encoding='utf-8') as read_file:
         if not data: continue # if we can't find them, just continue to next person
         new_data = jsonmcify(data)
         print(name)
-        
+
         # write the info to a new file
         with open("actors/"+nameToFile(name), 'w', encoding='utf-8') as write_file:
             json.dump(new_data, write_file, indent=2, ensure_ascii=False)
