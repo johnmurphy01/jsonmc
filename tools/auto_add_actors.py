@@ -8,15 +8,13 @@ import os # for various file related functions
 import json # for .json files
 import requests # for api requests
 import sys # for exit
-import re # for finding birthname
+import re # regex for finding birthname
 
 # Variables
 
 # if you want to use this, you can get an api key from tMDB
 # https://developers.themoviedb.org/3/getting-started/authentication
-api_key = "<< Your Api Key Here >>" 
-
-latin_letters= {}
+api_key = "<< Your Api Key Here >>"
 
 # go to the root dir and store that to a var
 os.chdir("..")
@@ -76,69 +74,72 @@ def search(name):
 
 # function to get a person's birth name from the wikipedia api
 def getBirthName(name):
-    try:
-        new_name = name
-        while True:
-            url = "https://en.wikipedia.org/w/api.php?"
-            params = {
-                'action':'query',
-                'titles':new_name,
-                'format':'json',
-                'prop':'revisions',
-                'rvsection':'0',
-                'rvprop':'content'
-            }
-            # get page data
-            r = requests.get(url=url, params=params)
-            
-            # if there's more than one guy with that name, go to the actor page
-            if re.search('may refer to:', str(r.content)): new_name = name + " (actor)"
-            else: break
+    new_name = name
+    while True:
+        url = "https://en.wikipedia.org/w/api.php?"
+        params = {
+            'action':'query',
+            'titles':new_name,
+            'format':'json',
+            'prop':'revisions',
+            'rvsection':'0',
+            'rvprop':'content'
+        }
+        # get page data
+        r = requests.get(url=url, params=params)
         
-        # parse the name out and make it look pretty
-        # get the page id
-        id = list(r.json()['query']['pages'])[0]
-        # get the content of the page
-        content = r.json()['query']['pages'][id]['revisions'][0]['*']
-        # get the birth name using complicated regex
-        birthname = re.search("birth_name.*= ({{nowrap\|)?(.*)(}})?", content).group(2)
-        # chop of the }} if it's there
-        if birthname[-2:] ==  "}}": birthname = birthname[:-2]
+        # if the wikipedia page doesn't exist, just return the name
+        if re.search(',"missing":""}}}}', str(r.content)): return name
         
-        # sometimes comments such as '<!-- only use if different from name -->'
-        # are put in the birth_name place on wikipedia, so just return name
-        if not birthname.replace(" ", "").isalpha(): return name
+        # if wikipedia redirects this page, go to the redirect
+        redirect = re.search("#REDIRECT \[\[(.*)\]\]", str(r.content))
+        if redirect: 
+            new_name = redirect.group(1)
+            continue
         
-        return birthname
+        # if there's more than one guy with that name, specify the actor page
+        # ex: Tom Holland
+        if re.search('may refer to:', str(r.content)): new_name = name + " (actor)"
+        else: break
         
-    # if all else fails, just set the birthname to name.
-    except:
+    # parse the name out and make it look pretty
+    # get the page id
+    id = list(r.json()['query']['pages'])[0]
+    # get the content of the page
+    content = r.json()['query']['pages'][id]['revisions'][0]['*']
+    # get the birth name using complicated regex
+    try: birthname = re.search("(birth_name|birthname).*= ({{nowrap\|)?(.*)(}})?", content).group(3)
+    # if there's no specified birthname, their name is already their birthname
+    except: return name
+    # chop of the }} if it's there
+    if birthname[-2:] ==  "}}": birthname = birthname[:-2]
+    
+    # sometimes comments such as '<!-- only use if different from name -->'
+    # are put in the birth_name place on wikipedia, or the birth name is left 
+    # blank. This means their name is the same as the birthname, so just return 
+    # name. What i'm doing is making sure the info in the birthname section only
+    # contains characters that belong in a name.
+    if not birthname.replace(" ", "").replace(".", "").replace("-", "").isalpha():
         return name
+            
+    
+    return birthname
     
 # function to skim data from tmdb api and change it to jsonmc format
 def jsonmcify(data):
-    # put in the name, birthdate, and birthplace
-    new_data = {}
-    
-    # name
-    new_data['name'] = name
-    
-    # birth name
-    new_data['birthname'] = getBirthName(name)
-    
-    # birthdate
-    new_data['birthdate'] = data['birthday']
-    # strip whitespace
-    if new_data['birthdate']: new_data['birthdate'] = new_data['birthdate'].strip()
-    
-    # birthplace
-    new_data['birthplace'] = data['place_of_birth']
-    # strip whitespace
-    if new_data['birthplace']: new_data['birthplace'] = new_data['birthplace'].strip()
+    # make the new data
+    new_data = {
+        'name':name,
+        'birthname':getBirthName(name),
+        'birthdate':data['birthday'],
+        'birthname':data['place_of_birth']
+    }
     
     # strip leading whitespace
     new_data['name'] = new_data['name'].strip()
     new_data['birthname'] = new_data['birthname'].strip()
+    if new_data['birthdate']: new_data['birthdate'] = new_data['birthdate'].strip()
+    if new_data['birthplace']: new_data['birthplace'] = new_data['birthplace'].strip()
     
     return new_data
     
