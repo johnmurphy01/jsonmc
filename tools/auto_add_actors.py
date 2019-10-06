@@ -8,7 +8,6 @@ import os # for various file related functions
 import json # for .json files
 import requests # for api requests
 import sys # for exit
-import unicodedata as ud # for is_latin and only_roman_chars
 import re # for finding birthname
 
 # Variables
@@ -143,21 +142,6 @@ def jsonmcify(data):
     
     return new_data
     
-
-# both functions below are for checking for roman chars in a string.
-# this is for checking birthnames, as tmdb lists these in "also_known_as"
-# along with translated versions of the name
-#
-# https://stackoverflow.com/questions/3094498/how-can-i-check-if-a-python-unicode-string-contains-non-western-letters
-def is_latin(uchr):
-    try: return latin_letters[uchr]
-    except KeyError:
-         return latin_letters.setdefault(uchr, 'LATIN' in ud.name(uchr))
-
-def only_roman_chars(unistr):
-    return all(is_latin(uchr)
-           for uchr in unistr
-           if uchr.isalpha()) # isalpha suggested by John Machin
 
 # check if the user hasn't entered their own api key
 if api_key == "<< Your Api Key Here >>":
