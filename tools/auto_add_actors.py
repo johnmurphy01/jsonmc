@@ -129,7 +129,7 @@ if api_key == "<< Your Api Key Here >>":
     sys.exit()
 
 # get the list of unlisted actors
-with open("tools/unlisted_actors.txt", 'r') as read_file:
+with open("tools/unlisted_actors.txt", 'r', encoding='utf-8') as read_file:
     # get the data and 'jsonmcify' it
     for name in read_file:
         name = name.rstrip()
@@ -139,5 +139,5 @@ with open("tools/unlisted_actors.txt", 'r') as read_file:
         print(name)
         
         # write the info to a new file
-        with open("actors/"+nameToFile(name), 'w') as write_file:
-            json.dump(new_data, write_file, indent=2)
+        with open("actors/"+nameToFile(name), 'w', encoding='utf-8') as write_file:
+            json.dump(new_data, write_file, indent=2, ensure_ascii=False)
