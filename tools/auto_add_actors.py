@@ -20,6 +20,19 @@ api_key = "<< Your Api Key Here >>"
 os.chdir("..")
 ROOT = os.getcwd()
 
+# main function. for organization.
+def main():
+    # check if the user hasn't entered their own api key
+    if api_key == "<< Your Api Key Here >>":
+        print("\nYou need to get an api key from tMDB and put it in the script.")
+        sys.exit()
+    
+    # get the list of unlisted actors
+    with open("tools/unlisted_actors.txt", 'r', encoding='utf-8') as read_file:
+        # get the data and 'jsonmcify' it
+        for name in read_file: addNewActor(name)
+
+
 # function to convert an actor name to a file name
 # ex: "Tom Cruise" becomes "tom-cruise.json"
 def nameToFile(name):
@@ -50,6 +63,7 @@ def getDetails(id):
 
 # does a search in the Movie Database api for a given actor name
 def search(name):
+    print("searching movie database for " + name + "...")
     # api url
     url = "https://api.themoviedb.org/3/search/person"
     # parameters to give to api
@@ -74,32 +88,39 @@ def search(name):
 
 # function to get a person's birth name from the wikipedia api
 def getBirthName(name):
-    new_name = name
-    while True:
+    page_title = name
+    counter = 0 # number of times we've looped
+    while True: 
+        # sometimes we end up in an infinite redirecting loop. this is 
+        # a temporary fix for that.
+        counter += 1
+        if counter > 4: return name
+        
         url = "https://en.wikipedia.org/w/api.php?"
         params = {
             'action':'query',
-            'titles':new_name,
+            'titles':page_title,
             'format':'json',
             'prop':'revisions',
             'rvsection':'0',
             'rvprop':'content'
         }
-        # get page data
+        # get wikipedia page data
         r = requests.get(url=url, params=params)
+        # print(r.content)
         
         # if the wikipedia page doesn't exist, just return the name
         if re.search(',"missing":""}}}}', str(r.content)): return name
         
         # if wikipedia redirects this page, go to the redirect
         redirect = re.search("#REDIRECT \[\[(.*)\]\]", str(r.content))
-        if redirect: 
-            new_name = redirect.group(1)
+        if redirect:
+            page_title = redirect.group(1)
             continue
         
         # if there's more than one guy with that name, specify the actor page
         # ex: Tom Holland
-        if re.search('may refer to:', str(r.content)): new_name = name + " (actor)"
+        if re.search('may refer to:', str(r.content)): page_title = name + " (actor)" 
         else: break
         
     # parse the name out and make it look pretty
@@ -129,10 +150,10 @@ def getBirthName(name):
 def jsonmcify(data):
     # make the new data
     new_data = {
-        'name':name,
-        'birthname':getBirthName(name),
+        'name':data['name'],
+        'birthname':getBirthName(data['name']),
         'birthdate':data['birthday'],
-        'birthname':data['place_of_birth']
+        'birthplace':data['place_of_birth']
     }
     
     # strip leading whitespace
@@ -143,22 +164,20 @@ def jsonmcify(data):
     
     return new_data
     
+# function to create a new actor file from a name
+def addNewActor(name):
+    name = name.strip()
+    print("searching movie database for actor...")
+    data = search(name)
+    if not data: 
+        print("cannot find actor. moving on.")
+        return # if we can't find them, just continue to next person
+    new_data = jsonmcify(data)
+    print("actor added: " + name)
 
-# check if the user hasn't entered their own api key
-if api_key == "<< Your Api Key Here >>":
-    print("\nYou need to get an api key from tMDB and put it in the script.")
-    sys.exit()
-
-# get the list of unlisted actors
-with open("tools/unlisted_actors.txt", 'r', encoding='utf-8') as read_file:
-    # get the data and 'jsonmcify' it
-    for name in read_file:
-        name = name.rstrip()
-        data = search(name)
-        if not data: continue # if we can't find them, just continue to next person
-        new_data = jsonmcify(data)
-        print(name)
-
-        # write the info to a new file
-        with open("actors/"+nameToFile(name), 'w', encoding='utf-8') as write_file:
-            json.dump(new_data, write_file, indent=2, ensure_ascii=False)
+    # write the info to a new file
+    with open("actors/"+nameToFile(name), 'w', encoding='utf-8') as write_file:
+        json.dump(new_data, write_file, indent=2, ensure_ascii=False)
+        
+# do main
+main()
