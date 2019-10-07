@@ -63,7 +63,6 @@ def getDetails(id):
 
 # does a search in the Movie Database api for a given actor name
 def search(name):
-    print("searching movie database for " + name + "...")
     # api url
     url = "https://api.themoviedb.org/3/search/person"
     # parameters to give to api
@@ -129,9 +128,9 @@ def getBirthName(name):
     # get the content of the page
     content = r.json()['query']['pages'][id]['revisions'][0]['*']
     # get the birth name using complicated regex
-    try: birthname = re.search("(birth_name|birthname).*= ({{nowrap\|)?(.*)(}})?", content).group(3)
-    # if there's no specified birthname, their name is already their birthname
-    except: return name
+    birthname = re.search("(birth_name|birthname).*= ({{nowrap\|)?(.*)(}})?", content).group(3)
+    # get rid of html comments or reference tags in and after the name
+    birthname = re.sub("<[^>]+>", '', birthname)
     # chop of the }} if it's there
     if birthname[-2:] ==  "}}": birthname = birthname[:-2]
     
@@ -167,10 +166,9 @@ def jsonmcify(data):
 # function to create a new actor file from a name
 def addNewActor(name):
     name = name.strip()
-    print("searching movie database for actor...")
     data = search(name)
     if not data: 
-        print("cannot find actor. moving on.")
+        print("cannot find: " + name)
         return # if we can't find them, just continue to next person
     new_data = jsonmcify(data)
     print("actor added: " + name)
