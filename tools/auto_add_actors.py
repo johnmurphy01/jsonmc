@@ -106,7 +106,6 @@ def getBirthName(name):
         }
         # get wikipedia page data
         r = requests.get(url=url, params=params)
-        # print(r.content)
         
         # if the wikipedia page doesn't exist, just return the name
         if re.search(',"missing":""}}}}', str(r.content)): return name
@@ -127,10 +126,13 @@ def getBirthName(name):
     id = list(r.json()['query']['pages'])[0]
     # get the content of the page
     content = r.json()['query']['pages'][id]['revisions'][0]['*']
-    # get the birth name using complicated regex
-    birthname = re.search("(birth_name|birthname).*= ({{nowrap\|)?(.*)(}})?", content).group(3)
-    # get rid of html comments or reference tags in and after the name
-    birthname = re.sub("<[^>]+>", '', birthname)
+    try:
+        # get the birth name using complicated regex
+        birthname = re.search("(birth_name|birthname).*= ({{nowrap\|)?(.*)(}})?", content).group(3)
+        # get rid of html comments or reference tags in and after the name
+        birthname = re.sub("<[^>]+>", '', birthname)
+    # if there's no birth name listed, it means their birth name is their regular name.
+    except: return name
     # chop of the }} if it's there
     if birthname[-2:] ==  "}}": birthname = birthname[:-2]
     
