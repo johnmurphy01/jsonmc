@@ -1,0 +1,22 @@
+{
+  "name": "Poltergeist",
+  "year": 1982,
+  "runtime": 114,
+  "categories": [
+    "horror",
+    "thriller"
+  ],
+  "release-date": "1982-06-04",
+  "director": "Tobe Hooper",
+  "writer": [
+    "Steven Spielberg",
+    "Michael Grais",
+    "Mark Victor"
+  ],
+  "actors": [
+	  "JoBeth Williams",
+	  "Heather O'Rourke",
+	  "Craig T. Nelson"
+  ],
+  "storyline": "A family's home is haunted by a host of demonic ghosts."
+}
