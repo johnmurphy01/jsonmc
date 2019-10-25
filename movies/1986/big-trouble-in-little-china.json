@@ -1,0 +1,17 @@
+{
+  "name": "Big Trouble in Little China",
+  "year": 1986,
+  "runtime": 99,
+  "categories": ["action", "adventure", "comedy", "fantasy"],
+  "release-date": "1986-07-02",
+  "director": "John Carpenter",
+  "writer": ["Gary Goldman", "David Z. Weinstein"],
+  "actors": [
+    "Kurt Russell",
+    "Kim Cattrall",
+    "Dennis Dun",
+    "James Hong",
+    "Victor Wong"
+  ],
+  "storyline": "A rough-and-tumble trucker helps rescue his friend's fiancée from an ancient sorcerer in a supernatural battle beneath Chinatown."
+}
