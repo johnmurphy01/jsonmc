@@ -1,23 +1,65 @@
 {
-  "name": "Bohemian Rhapsody",
-  "year": 2018,
-  "runtime": 134,
-  "categories": [
-    "biography",
-    "drama",
-    "music"
-  ],
-  "release-date": "2018-11-02",
-  "future": "true",
-  "director": "Bryan Singer",
-  "writer": [
-    "Anthony McCarten",
-    "Peter Morgan"
-  ],
-  "actors": [
-    "Rami Malek",
-    "Ben Hardy",
-    "Gwilym Lee"
-  ],
-  "storyline": "A chronicle of the years leading up to Queen's legendary appearance at the Live Aid (1985) concert."
-}
+    "name": "Bohemian Rhapsody",
+    "year": 2018,
+    "runtime": 134,
+    "release-date": "2018-10-23",
+    "categories": [
+      "biography", 
+      "drama", 
+      "music"
+    ],
+    "director": "Bryan Singer",
+    "writer": [
+      "Anthony McCarten", 
+      "Peter Morgan", 
+      "Anthony McCarten"
+    ],
+    "actors": [
+      "Rami Malek",
+      "Lucy Boynton",
+      "Gwilym Lee",
+      "Ben Hardy",
+      "Joseph Mazzello",
+      "Aidan Gillen",
+      "Allen Leech",
+      "Tom Hollander",
+      "Mike Myers",
+      "Aaron McCusker",
+      "Meneka Das",
+      "Ace Bhatti",
+      "Priya Blackburn",
+      "Dermot Murphy",
+      "Dickie Beau",
+      "Tim Plester",
+      "Jack Roth",
+      "Max Bennett",
+      "Felipe Bejarano",
+      "Neil Fox-Roberts",
+      "Kieran Hardcastle",
+      "Ross Green",
+      "Bruce Mackinnon",
+      "Joshua Higgott",
+      "Pat Lally",
+      "William Owen",
+      "Michelle Duncan",
+      "Martin Oelbermann",
+      "Ian Gabriel Dumdum",
+      "Matt Greenwood",
+      "Royce Cronin",
+      "James MacLaren",
+      "Andrew Bowerman",
+      "Drew P.",
+      "Jess Radomska",
+      "Haf Gibson",
+      "Honor Hellon",
+      "Rosy Benjamin",
+      "Leila Crerar",
+      "Katherine Newman",
+      "Peter Howe",
+      "Adam Rauf",
+      "Philip Andrew",
+      "John Ottman"
+      "James Wallace"
+    ],
+    "storyline": "Bohemian Rhapsody is a foot-stomping celebration of Queen, their music and their extraordinary lead singer Freddie Mercury. Freddie defied stereotypes and shattered convention to become one of the most beloved entertainers on the planet. The film traces the meteoric rise of the band through their iconic songs and revolutionary sound. They reach unparalleled success, but in an unexpected turn Freddie, surrounded by darker influences, shuns Queen in pursuit of his solo career. Having suffered greatly without the collaboration of Queen, Freddie manages to reunite with his bandmates just in time for Live Aid. While bravely facing a recent AIDS diagnosis, Freddie leads the band in one of the greatest performances in the history of rock music. Queen cements a legacy that continues to inspire outsiders, dreamers and music lovers to this day."
+  }
