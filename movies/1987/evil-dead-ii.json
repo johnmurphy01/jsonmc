@@ -1,0 +1,17 @@
+{
+  "name": "Evil Dead II",
+  "year": 1987,
+  "runtime": 84,
+  "categories": ["horror", "comedy"],
+  "release-date": "1981-03-13",
+  "director": " Sam Raimi",
+  "writer": ["Sam Raimi", "Scott Spiegel"],
+  "actors": [
+    "Bruce Campbell",
+    "Sarah Berry",
+    "Dan Hicks",
+    "Kassie Wesley DePaiva",
+    "Ted Raimi"
+  ],
+  "storyline": "The lone survivor of an onslaught of flesh-possessing spirits holes up in a cabin with a group of strangers while the demons continue their attack."
+}
