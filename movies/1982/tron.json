@@ -1,0 +1,23 @@
+{
+  "name": "TRON",
+  "year": 1982,
+  "runtime": 96,
+  "categories": [
+    "sci-fi",
+	"action",
+	"adventure"
+  ],
+  "release-date": "1982-07-09",
+  "director": "Steven Lisberger",
+  "writer": [
+	"Steven Lisberger",
+	"Bonnie MacBird",
+	"Charles S. Haas"
+  ],
+  "actors": [
+	"Jeff Bridges",
+	"Bruce Boxleitner",
+	"David Warner"
+  ],
+  "storyline": "A computer hacker is abducted into the digital world and forced to participate in gladiatorial games where his only chance of escape is with the help of a heroic security program."
+}
