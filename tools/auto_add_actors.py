@@ -1,4 +1,4 @@
-# a tool automatically add actors to the database based on the 'unlisted_actors'
+# a tool that automatically adds actors to the database based on the 'unlisted_actors'
 # list. It uses tMDB api.
 #
 # made by themousery :)
